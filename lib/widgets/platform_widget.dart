@@ -6,8 +6,8 @@ class PlatformWidgets extends StatelessWidget {
   final WidgetBuilder iosBuilder;
 
   PlatformWidgets({
-    @required this.androidBuilder,
-    @required this.iosBuilder
+    required this.androidBuilder,
+    required this.iosBuilder
   });
 
   @override

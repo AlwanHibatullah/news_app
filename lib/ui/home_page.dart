@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return PlatformWidgets(
         androidBuilder: _buildAndroid, iosBuilder: _buildIOS);
   }

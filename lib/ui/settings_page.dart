@@ -7,7 +7,6 @@ import 'package:news_app/widgets/platform_widget.dart';
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return PlatformWidgets(
         androidBuilder: _buildAndroid, iosBuilder: _buildIOS);
   }

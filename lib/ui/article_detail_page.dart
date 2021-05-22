@@ -7,7 +7,7 @@ class ArticleDetailPage extends StatelessWidget {
 
   final Article article;
 
-  const ArticleDetailPage({@required this.article});
+  const ArticleDetailPage({required this.article});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,15 +18,15 @@ class ArticleDetailPage extends StatelessWidget {
         child: Column(
           children: [
             Hero(
-              tag: article.urlToImage,
-              child: Image.network(article.urlToImage)
+              tag: article.urlToImage!,
+              child: Image.network(article.urlToImage!)
             ),
             Padding(
                 padding: EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(article.description),
+                    Text(article.description!),
                     Divider(color: Colors.grey),
                     Text(
                       article.title,
@@ -42,7 +42,7 @@ class ArticleDetailPage extends StatelessWidget {
                     Text('Author: ${article.author}'),
                     Divider(color: Colors.grey),
                     Text(
-                      article.content,
+                      article.content!,
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(height: 10),
