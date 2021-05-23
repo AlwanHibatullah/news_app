@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'package:news_app/data/api/api_service.dart';
 import 'package:news_app/data/model/article.dart';
@@ -15,11 +15,11 @@ class NewsProvider extends ChangeNotifier {
   }
 
   late ArticlesResult _articlesResult;
-  String _message = '';
   late ResultState _state;
+  String _message = '';
 
-  ArticlesResult get result => _articlesResult;
   String get message => _message;
+  ArticlesResult get result => _articlesResult;
   ResultState get state => _state;
 
   Future<dynamic> _fetchAllArticle() async {

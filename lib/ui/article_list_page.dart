@@ -6,34 +6,26 @@ import 'package:news_app/widgets/platform_widget.dart';
 import 'package:provider/provider.dart';
 
 class ArticleListPage extends StatelessWidget{
-  Widget _buildList(BuildContext context) {
+  Widget _buildList() {
     return Consumer<NewsProvider>(
       builder: (context, state, _) {
         if (state.state == ResultState.Loading) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return Center(child: CircularProgressIndicator());
         } else if (state.state == ResultState.HasData) {
           return ListView.builder(
             shrinkWrap: true,
+            itemCount: state.result.articles.length,
             itemBuilder: (context, index) {
               var article = state.result.articles[index];
               return CardArticle(article: article);
             },
-            itemCount: state.result.articles.length,
           );
         } else if (state.state == ResultState.NoData) {
-          return Center(
-            child: Text(state.message),
-          );
+          return Center(child: Text(state.message));
         } else if (state.state == ResultState.Error) {
-          return Center(
-            child: Text(state.message),
-          );
+          return Center(child: Text(state.message));
         } else {
-          return Center(
-            child: Text(''),
-          );
+          return Center(child: Text(''));
         }
       },
     );
@@ -44,7 +36,7 @@ class ArticleListPage extends StatelessWidget{
       appBar: AppBar(
         title: Text('News App'),
       ),
-      body: _buildList(context),
+      body: _buildList(),
     );
   }
 
@@ -54,7 +46,7 @@ class ArticleListPage extends StatelessWidget{
         middle: Text('News App'),
         transitionBetweenRoutes: false,
       ),
-      child: _buildList(context),
+      child: _buildList(),
     );
   }
 

@@ -1,6 +1,7 @@
+import 'package:news_app/common/navigation.dart';
 import 'package:news_app/data/model/article.dart';
-import 'package:flutter/material.dart';
 import 'package:news_app/ui/article_webview.dart';
+import 'package:flutter/material.dart';
 
 class ArticleDetailPage extends StatelessWidget {
   static const routeName = '/article_detail';
@@ -8,6 +9,7 @@ class ArticleDetailPage extends StatelessWidget {
   final Article article;
 
   const ArticleDetailPage({required this.article});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,15 +28,11 @@ class ArticleDetailPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(article.description!),
+                    Text(article.description ?? "-"),
                     Divider(color: Colors.grey),
                     Text(
                       article.title,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24
-                      ),
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     Divider(color: Colors.grey),
                     Text('Date: ${article.publishedAt}'),
@@ -42,14 +40,15 @@ class ArticleDetailPage extends StatelessWidget {
                     Text('Author: ${article.author}'),
                     Divider(color: Colors.grey),
                     Text(
-                      article.content!,
-                      style: TextStyle(fontSize: 16),
+                      article.content ?? "-",
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     SizedBox(height: 10),
                     ElevatedButton(
                         child: Text('Read More'),
                         onPressed: () {
-                          Navigator.pushNamed(context, ArticleWebView.routeName, arguments: article.url);
+                          Navigation.intentWithData(
+                            ArticleWebView.routeName, article.url);
                         }
                     )
                   ],
