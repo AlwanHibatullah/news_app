@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/provider/news_provider.dart';
+import 'package:news_app/utils/result_state.dart';
 import 'package:news_app/widgets/card_article.dart';
 import 'package:news_app/widgets/platform_widget.dart';
 import 'package:provider/provider.dart';
 
-class ArticleListPage extends StatelessWidget{
+class ArticleListPage extends StatelessWidget {
   Widget _buildList() {
     return Consumer<NewsProvider>(
       builder: (context, state, _) {

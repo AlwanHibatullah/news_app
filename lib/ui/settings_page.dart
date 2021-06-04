@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:news_app/provider/preferences_provider.dart';
 import 'package:news_app/provider/scheduling_provider.dart';
 import 'package:news_app/widgets/custom_dialog.dart';
 import 'package:news_app/widgets/platform_widget.dart';
@@ -16,35 +17,39 @@ class SettingsPage extends StatelessWidget {
   }
 
   Widget _buildList(BuildContext context) {
-    return ListView(
-      children: [
-        Material(
-          child: ListTile(
-            title: Text('Dark Theme'),
-            trailing: Switch.adaptive(
-                value: false, onChanged: (value) => customDialog(context)),
-          ),
-        ),
-        Material(
-          child: ListTile(
-            title: Text('Scheduling News'),
-            trailing: Consumer<SchedulingProvider>(
-              builder: (context, scheduled, _) {
-                return Switch.adaptive(
-                    value: scheduled.isScheduled,
-                    onChanged: (value) async {
-                      if (Platform.isIOS) {
-                        customDialog(context);
-                      } else {
-                        scheduled.scheduledNews(value);
-                      }
-                    });
-              },
+    return Consumer<PreferencesProvider>(builder: (context, provider, _) {
+      return ListView(
+        children: [
+          Material(
+            child: ListTile(
+              title: Text('Dark Theme'),
+              trailing: Switch.adaptive(
+                  value: provider.isDarkTheme,
+                  onChanged: (value) => provider.enableDarkTheme(value)),
             ),
           ),
-        ),
-      ],
-    );
+          Material(
+            child: ListTile(
+              title: Text('Scheduling News'),
+              trailing: Consumer<SchedulingProvider>(
+                builder: (context, scheduled, _) {
+                  return Switch.adaptive(
+                      value: provider.isDailyNewsActive,
+                      onChanged: (value) async {
+                        if (Platform.isIOS) {
+                          customDialog(context);
+                        } else {
+                          scheduled.scheduledNews(value);
+                          provider.enableDailyNews(value);
+                        }
+                      });
+                },
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 
   Widget _buildAndroid(BuildContext context) {
